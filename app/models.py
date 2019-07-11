@@ -15,10 +15,12 @@ class Post(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(1000))
-    body = db.Column(db.BLOB)
+    body = db.Column(db.Text)
+    image = db.Column(db.BLOB)
     timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    username = db.Column(db.String(64), index=True, unique=True)
 
     def __repr__(self):
-        return '<Posts {} {} {}>'.format(self.user_id, self.title, self.body)
+        return '<Posts {} {} {} {}>'.format(self.user_id, self.title, self.body, self.username)
 

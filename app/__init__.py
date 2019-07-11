@@ -8,8 +8,7 @@ app.config.from_object(Config)
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 
-#from flaskext.lesscss import lesscss
-#lesscss(app)
+# app views
 
 app.config['ENV'] = 'development'
 app.config['DEBUG'] = True
