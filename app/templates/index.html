@@ -12,13 +12,13 @@
                 <article>
                     <header>
                         <h2>{{ post.title }}</h2>
-                        <p class="author-cred">by <a href="#">{{ post.username }}</a> on Date {{ post.timestamp }} </p>
+                        <p class="author-cred">by <a href="#">{{ post.username }}</a></p>
                     </header>
                     <p>
                         {{ post.body|truncate(350) }}
                     </p>
                     <footer>
-                        <a href="#" class="more-link">Read More</a>
+                        <a href="{{ url_for('view_post', post_id=post.id) }}" class="more-link">Read More</a>
                     </footer>
                 </article>
             </div>
