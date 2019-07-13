@@ -1,8 +1,8 @@
 {% extends "master.html" %}
 {% block content %}
-    <div class="container">
+        <a href="{{ url_for('new_post') }}" class="more-link">New Post</a>
         <div class="page-header">
-            <h2>Global Warming!!<small>It's real</small></h2>
+            <h1>Global Warming!!<small>It's real</small></h1>
         </div>
         <div class="warp">
             {% for post in posts %}
@@ -11,8 +11,8 @@
                 </div>
                 <article>
                     <header>
-                        <h2>{{ post.title }}</h2>
-                        <p class="author-cred">by <a href="#">{{ post.username }}</a></p>
+                        <h2 class="h3">{{ post.title }}</h2>
+                        <p>by <a href="#">{{ post.username }}</a></p>
                     </header>
                     <p>
                         {{ post.body|truncate(350) }}
@@ -24,5 +24,4 @@
             </div>
             {% endfor %}
         </div>
-    </div>
 {% endblock %}

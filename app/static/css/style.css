@@ -47,10 +47,6 @@
     width: 100%;
   }
 }
-.post article header p.author-cred {
-  background: #f1f1f1;
-  padding: 0.5em;
-}
 .post article header ul.cat {
   list-style: none;
   margin: 0;
@@ -131,4 +127,23 @@ ul.tags li a:hover {
 }
 .more-link:hover {
   background: #004d4d;
+}
+h1{
+    font-family: 'Scope One', serif;
+    font-size:3em;
+    font-weight:400;
+    margin-top:40px;
+}
+.h3{
+    margin-top:10px;
+    font-weight: 500;
+}
+p{
+    font-family: 'Raleway', sans-serif;
+    letter-spacing:1px;
+    text-align: justify;
+    line-height:25px;
+}
+small{
+  font-size: 10%
 }

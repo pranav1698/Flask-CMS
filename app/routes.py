@@ -12,3 +12,7 @@ def view_post(post_id):
 	post = db.session.query(Post).filter_by(id=post_id).first()
 	date = str(post.timestamp)[:10]
 	return render_template('post.html', title=post.title, body=post.body, date=date, username=post.username)
+
+@app.route('/new_post')
+def new_post():
+	return render_template('new_post.html')
