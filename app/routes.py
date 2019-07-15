@@ -1,6 +1,7 @@
 from app import app, db
 from flask import Flask, render_template, redirect, request
 from app.models import User, Post
+from app.forms import LoginForm
 
 @app.route('/')
 def index():
@@ -16,3 +17,17 @@ def view_post(post_id):
 @app.route('/new_post')
 def new_post():
 	return render_template('new_post.html')
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+	form = LoginForm()
+	if form.validate_on_submit():
+		email = form.email.data
+		username = form.username.data
+		password = form.password.data
+		remember_me = form.remember_me.data
+		user = User(username=username, email=email, password_hash=password)
+		db.session.add(user)
+		db.session.commit()
+		return render_template('new_post.html')
+	return render_template('login.html', title='Sign In', form=form)

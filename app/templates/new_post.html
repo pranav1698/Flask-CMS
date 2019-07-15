@@ -13,6 +13,12 @@
     </head>
     <body>
         <div class="container">
+            <br>
+            <div class="col-md-6" style="margin-left: 40%">
+                <a href="{{ url_for('login') }}"><button type="button" class="btn btn-default" style="position: absolute;">Sign-in to start blogging</button></a>
+            </div>     
+            <br>          
+            <hr>
             <h1>Start writing for a cause!!</h1>
             <form action="#" method="POST">
                 <div class="form-group">
@@ -27,40 +33,10 @@
                 <div class="form-group">
                     <textarea></textarea>
                 </div>
-                <div class="wrapper" style="margin-left: 40%">
-                    <button type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal" style="position: absolute;">Sign-in to start blogging</button>
+                <div style="margin-left: 47%">
+                    <button type="submit" class="btn btn-default" style="float: center" disabled>Save</button>
                 </div>
-                <!--<button type="submit" class="btn btn-default" style="float: center">Save</button>-->
             </form>
-            <div id="myModal" class="modal fade" role="dialog" style="top: 20%">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                          <button type="button" class="close" data-dismiss="modal">&times;</button>
-                          <h4 class="modal-title">User Sign-in</h4>
-                        </div>
-                        <div class="modal-body">
-                          <form method="POST">
-                            <div class="form-group">
-                               <label for="email">Email</label>
-                                <input type="email" class="form-control" id="email" name="email" size="64" maxLength="64" placeholder="Enter Email" required pattern="/^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}
-                                [a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/">
-                            </div>
-                            <div class="form-group">
-                                <label for="username">Username</label>
-                                <input type="text" class="form-control" id="username" name="username" placeholder="Enter Username" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="password">Password</label>
-                                <input type="password" class="form-control" id="password" name="password" placeholder="Enter Password" required> 
-                            </div>
-                            <div>
-                                <button type="button" class="btn btn-default" style="text-align: center">Sign-in</button>
-                            </div>                
-                          </form>
-                        </div>
-                    </div>
-                </div>
             </div>        
         </div>
     </body>

@@ -37,3 +37,16 @@ p{
 .cpy{
   float:right;
 }
+
+.more-link {
+  text-align: center;
+  background: teal;
+  color: #fff !important;
+  padding: 0.5em 0.75em;
+  display: inline-block;
+  float: right;
+}
+.more-link:hover {
+  background: #004d4d;
+}
+
