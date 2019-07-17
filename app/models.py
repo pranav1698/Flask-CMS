@@ -22,5 +22,5 @@ class Post(db.Model):
     username = db.Column(db.String(64), index=True, unique=True)
 
     def __repr__(self):
-        return '<Posts {} {} {} {}>'.format(self.user_id, self.title, self.body, self.username)
+        return '<Posts {} {} {} {}>'.format(self.image, self.title, self.body, self.username)
 
