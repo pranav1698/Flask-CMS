@@ -3,6 +3,12 @@ from flask import Flask, render_template, redirect, request
 from app.models import User, Post
 from app.forms import LoginForm
 
+def convertToBinaryData(filename):
+#Convert digital data to binary format
+	with open(filename, 'rb') as file:
+		binaryData = file.read()
+	return binaryData    
+
 @app.route('/')
 def index():
     posts = db.session.query(Post).all()
@@ -17,6 +23,19 @@ def view_post(post_id):
 @app.route('/new_post')
 def new_post():
 	return render_template('new_post.html')
+
+@app.route('/add_post',  methods = ['POST'])
+def add_post():
+	title = request.form['title']
+	image_file = request.form['image']
+	image = convertToBinaryData(image_file)
+	body = request.form['body']
+	username = "pranav"
+	post = Post(title=title, body=body, image= image, username=username)
+	db.session.add(post)
+	db.session.commit()
+	posts = db.session.query(Post).all()
+	return render_template('index.html', posts=posts)
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
