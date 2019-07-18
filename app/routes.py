@@ -1,6 +1,6 @@
 import os 
 from app import app, db
-from flask import Flask, render_template, redirect, request, url_for, send_from_directory
+from flask import Flask, render_template, redirect, request, url_for, send_from_directory, session
 from app.models import User, Post
 from werkzeug import secure_filename
 from app.forms import LoginForm
@@ -47,7 +47,10 @@ def view_post(post_id):
 
 @app.route('/new_post')
 def new_post():
-	return render_template('new_post.html')
+	if 'username' in session:
+		username = session['username']
+		return render_template('new_post.html', username=username)
+	return render_template('new_post.html', username="")
 
 @app.route('/add_post',  methods = ['POST'])
 def add_post():
@@ -61,11 +64,11 @@ def add_post():
 			filename = app.config['UPLOAD_FOLDER'] + filename
 	image = convertToBinaryData(filename)
 	body = request.form['body']
-	username = "dipesh12345"
+	username = session["username"]
 	post = Post(title=title, body=body, image= image, username=username)
 	db.session.add(post)
 	db.session.commit()
-	return index()
+	return redirect(url_for('index'))
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -78,5 +81,6 @@ def login():
 		user = User(username=username, email=email, password_hash=password)
 		db.session.add(user)
 		db.session.commit()
-		return render_template('new_post.html')
+		session['username'] = username
+		return redirect(url_for('new_post.html'))
 	return render_template('login.html', title='Sign In', form=form)

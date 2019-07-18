@@ -13,13 +13,15 @@
     </head>
     <body>
         <div class="container">
-            <br>
-            <div class="col-md-6" style="margin-left: 40%">
-                <a href="{{ url_for('login') }}"><button type="button" class="btn btn-default" style="position: absolute;">Sign-in to start blogging</button></a>
-            </div>     
-            <br>          
-            <hr>
-            <h1>Start writing for a cause!!</h1>
+            {% if username == "" %}
+                <br>
+                <div class="text-right">
+                    <a href="{{ url_for('login') }}" class="more-link">Signin/Register</a>              
+                </div>
+            {% endif %}
+            <div class="page-header">
+                <h1>Start writing for a cause!!</h1>    
+            </div>
             <form action="/add_post" method="POST" enctype="multipart/form-data">
                 <div class="form-group">
                     <label for="title">Title:</label>
@@ -34,7 +36,11 @@
                     <textarea name="body"></textarea>
                 </div>
                 <div style="margin-left: 47%">
-                    <button type="submit" class="btn btn-default" style="float: center">Save</button>
+                    {% if username=="" %}
+                        <button type="submit" class="btn btn-default" style="float: center" disabled>Save</button>
+                    {% else %}
+                        <button type="submit" class="btn btn-default" style="float: center">Save</button>
+                    {% endif %}
                 </div>
             </form>
             </div>        

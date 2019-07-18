@@ -19,7 +19,7 @@ class Post(db.Model):
     image = db.Column(db.BLOB)
     timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-    username = db.Column(db.String(64), index=True, unique=True)
+    username = db.Column(db.String(64), index=True)
 
     def __repr__(self):
         return '<Posts {} {} {} {}>'.format(self.image, self.title, self.body, self.username)
