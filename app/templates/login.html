@@ -3,12 +3,8 @@
             <br>
             <br>
             <form class="form-signin" action="" method="POST" novalidate>
-                <h2 class="modal-title">User Sign-in</h2>
+                <h2 class="modal-title">User Sign-In</h2>
                 {{ form.hidden_tag() }}
-                <div class="form-group">
-                    <label for="email">{{ form.email.label }}</label>
-                    {{ form.email(size=32) }}
-                </div>
                 <div class="form-group">
                     <label for="username">{{ form.username.label }}</label>
                     {{ form.username(size=32) }}
@@ -17,11 +13,11 @@
                     <label for="password">{{ form.password.label }}</label>
                     {{ form.password(size=32) }}
                 </div>
-                <div>
+                <div class="form-group">
                     <p>{{ form.remember_me() }} {{ form.remember_me.label }}</p>
                     <p style="text-align: center">{{ form.submit() }}</p>
-                </div>                
+                </div>
+                <hr>
+                <p style="text-align: center;">New User <strong><a href="{{ url_for('register') }}">Register</a></strong></p>
             </form>
-        </div>
 {% endblock %}
-        

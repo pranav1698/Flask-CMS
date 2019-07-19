@@ -12,7 +12,7 @@
                 <article>
                     <header>
                         <h2 class="h3">{{ post.title }}</h2>
-                        <p>by <a href="#">{{ post.username }}</a></p>
+                        <p>by {{ post.username }} on {{ post.date }}</p>
                     </header>
                         {{ post.body|truncate(350)|safe }}
                     <footer>

@@ -1,9 +1,10 @@
 import os 
 from app import app, db
 from flask import Flask, render_template, redirect, request, url_for, send_from_directory, session
+from flask_login import current_user, login_user
 from app.models import User, Post
 from werkzeug import secure_filename
-from app.forms import LoginForm
+from app.forms import RegisterForm, LoginForm
 from base64 import b64encode
 
 ALLOWED_EXTENSIONS_IMAGE = set(['png', 'jpg', 'jpeg'])
@@ -31,6 +32,7 @@ def index():
     	post_1['title'] = post.title
     	post_1['body'] = post.body
     	post_1['username'] = post.username
+    	post_1['date'] = str(post.timestamp)[:10]
     	if post.image:
     		post_1['image'] = b64encode(post.image).decode("utf-8")
     	added_posts.append(post_1)
@@ -70,17 +72,34 @@ def add_post():
 	db.session.commit()
 	return redirect(url_for('index'))
 
-@app.route('/login', methods=['GET', 'POST'])
-def login():
-	form = LoginForm()
+@app.route('/register', methods=['GET', 'POST'])
+def register():
+	form = RegisterForm()
 	if form.validate_on_submit():
 		email = form.email.data
 		username = form.username.data
 		password = form.password.data
 		remember_me = form.remember_me.data
-		user = User(username=username, email=email, password_hash=password)
+		user = User(username=username, email=email)
+		user.set_password(password)
 		db.session.add(user)
 		db.session.commit()
+		return redirect(url_for('login'))
+	return render_template('register.html', form=form)
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+	if current_user.is_authenticated:
+		return redirect(url_for('new_post'))
+	form = LoginForm()
+	if form.validate_on_submit():
+		username=form.username.data
+		user = User.query.filter_by(username=username).first()
+		if user is None or not user.check_password(form.password.data):
+			flash('Invalid username or password')
+			return redirect(url_for('login'))
+		login_user(user, remember=form.remember_me.data)
 		session['username'] = username
-		return redirect(url_for('new_post.html'))
-	return render_template('login.html', title='Sign In', form=form)
+		return redirect(url_for('new_post'))
+	return render_template('login.html', form=form)
+
