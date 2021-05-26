@@ -22,6 +22,7 @@ def convertToBinaryData(filename):
 		binaryData = file.read()
 	return binaryData    
 
+#Root route to the server
 @app.route('/')
 def index():
     posts = db.session.query(Post).all()
@@ -38,6 +39,7 @@ def index():
     	added_posts.append(post_1)
     return render_template('index.html', posts=added_posts)
 
+#API to fetch a specifies post from server
 @app.route('/post/<int:post_id>')
 def view_post(post_id):
 	post = db.session.query(Post).filter_by(id=post_id).first()
@@ -47,6 +49,7 @@ def view_post(post_id):
 	date = str(post.timestamp)[:10]
 	return render_template('post.html', title=post.title, body=post.body, date=date, username=post.username, image=image)
 
+#Open new post page
 @app.route('/new_post')
 def new_post():
 	if 'username' in session:
@@ -54,6 +57,7 @@ def new_post():
 		return render_template('new_post.html', username=username)
 	return render_template('new_post.html', username="")
 
+#API to create a new post request to the server
 @app.route('/add_post',  methods = ['POST'])
 def add_post():
 	db.session.rollback()
@@ -72,6 +76,7 @@ def add_post():
 	db.session.commit()
 	return redirect(url_for('index'))
 
+#API to create a new user
 @app.route('/register', methods=['GET', 'POST'])
 def register():
 	form = RegisterForm()
@@ -87,6 +92,7 @@ def register():
 		return redirect(url_for('login'))
 	return render_template('register.html', form=form)
 
+#API to login a already registered user
 @app.route('/login', methods=['GET', 'POST'])
 def login():
 	if current_user.is_authenticated:
