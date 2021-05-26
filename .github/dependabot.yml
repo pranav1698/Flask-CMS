@@ -1,0 +1,15 @@
+version: 2
+updates:
+- package-ecosystem: pip
+  directory: "/"
+  schedule:
+    interval: daily
+    time: "23:30"
+  open-pull-requests-limit: 10
+  ignore:
+  - dependency-name: flask-migrate
+    versions:
+    - 2.6.0
+  - dependency-name: flask-sqlalchemy
+    versions:
+    - 2.4.4
